@@ -9,11 +9,11 @@
 </p>
 
 <h1 align="center">
-  Medusa Next.js Starter Template
+  Medusa Next.js Storefront for Dokploy
 </h1>
 
 <p align="center">
-Combine Medusa's modules for your commerce backend with the newest Next.js 15 features for a performant storefront.</p>
+A high-performance storefront built with Next.js 15, configured for deployment on Dokploy.</p>
 
 <p align="center">
   <a href="https://github.com/medusajs/medusa/blob/master/CONTRIBUTING.md">
@@ -27,18 +27,9 @@ Combine Medusa's modules for your commerce backend with the newest Next.js 15 fe
   </a>
 </p>
 
-### Prerequisites
-
-To use the [Next.js Starter Template](https://medusajs.com/nextjs-commerce/), you should have a Medusa server running locally on port 9000.
-For a quick setup, run:
-
-```shell
-npx create-medusa-app@latest
-```
-
-Check out [create-medusa-app docs](https://docs.medusajs.com/learn/installation) for more details and troubleshooting.
-
 # Overview
+
+This storefront is configured for deployment on Dokploy and connects to the Medusa backend service.
 
 The Medusa Next.js Starter is built with:
 
@@ -67,36 +58,37 @@ Features include:
 
 # Quickstart
 
-### Setting up the environment variables
+## Deployment on Dokploy
 
-Navigate into your projects directory and get your environment variables ready:
+This storefront is configured to be deployed on Dokploy. See the main project README and DOKPLOY.md for complete deployment instructions.
 
-```shell
-cd nextjs-starter-medusa/
-mv .env.template .env.local
+### Environment Variables
+
+The following environment variable needs to be configured in Dokploy:
+
+```
+NEXT_PUBLIC_MEDUSA_BACKEND_URL=https://your-backend-url
 ```
 
-### Install dependencies
+## Local Development
 
-Use Yarn to install all dependencies.
+To run this storefront locally:
 
-```shell
+```bash
+# Install dependencies
+npm install
+# or
 yarn
-```
 
-### Start developing
-
-You are now ready to start up your project.
-
-```shell
+# Start development server
+npm run dev
+# or
 yarn dev
 ```
 
-### Open the code and start customizing
+Your site will be running at http://localhost:8000!
 
-Your site is now running at http://localhost:8000!
-
-# Payment integrations
+## Payment integrations
 
 By default this starter supports the following payment integrations
 
@@ -112,14 +104,8 @@ You'll also need to setup the integrations in your Medusa server. See the [Medus
 
 # Resources
 
-## Learn more about Medusa
+## Learn more about Medusa and Next.js
 
-- [Website](https://www.medusajs.com/)
-- [GitHub](https://github.com/medusajs)
-- [Documentation](https://docs.medusajs.com/)
-
-## Learn more about Next.js
-
-- [Website](https://nextjs.org/)
-- [GitHub](https://github.com/vercel/next.js)
-- [Documentation](https://nextjs.org/docs)
+- [Medusa Documentation](https://docs.medusajs.com/)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Dokploy Documentation](https://dokploy.com/docs)

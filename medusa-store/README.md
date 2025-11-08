@@ -8,7 +8,7 @@
   </a>
 </p>
 <h1 align="center">
-  Medusa
+  Medusa Backend for Dokploy
 </h1>
 
 <h4 align="center">
@@ -17,46 +17,63 @@
 </h4>
 
 <p align="center">
-  Building blocks for digital commerce
-</p>
-<p align="center">
-  <a href="https://github.com/medusajs/medusa/blob/master/CONTRIBUTING.md">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="PRs welcome!" />
-  </a>
-    <a href="https://www.producthunt.com/posts/medusa"><img src="https://img.shields.io/badge/Product%20Hunt-%231%20Product%20of%20the%20Day-%23DA552E" alt="Product Hunt"></a>
-  <a href="https://discord.gg/xpCwq3Kfn8">
-    <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg" alt="Discord Chat" />
-  </a>
-  <a href="https://twitter.com/intent/follow?screen_name=medusajs">
-    <img src="https://img.shields.io/twitter/follow/medusajs.svg?label=Follow%20@medusajs" alt="Follow @medusajs" />
-  </a>
+  Backend service for the Medusa e-commerce platform, configured for Dokploy deployment
 </p>
 
-## Compatibility
+## Overview
 
-This starter is compatible with versions >= 2 of `@medusajs/medusa`. 
+This is the backend service for our Medusa e-commerce platform. It's configured to be deployed on Dokploy and provides all the API endpoints needed for the storefront and admin dashboard.
 
-## Getting Started
+## Features
 
-Visit the [Quickstart Guide](https://docs.medusajs.com/learn/installation) to set up a server.
+- Complete e-commerce API functionality
+- Product management
+- Order processing
+- Customer management
+- Inventory tracking
+- Shipping options
+- Payment processing
 
-Visit the [Docs](https://docs.medusajs.com/learn/installation#get-started) to learn more about our system requirements.
+## Deployment on Dokploy
 
-## What is Medusa
+This backend is configured to be deployed on Dokploy. See the main project README and DOKPLOY.md for complete deployment instructions.
 
-Medusa is a set of commerce modules and tools that allow you to build rich, reliable, and performant commerce applications without reinventing core commerce logic. The modules can be customized and used to build advanced ecommerce stores, marketplaces, or any product that needs foundational commerce primitives. All modules are open-source and freely available on npm.
+### Environment Variables
 
-Learn more about [Medusa’s architecture](https://docs.medusajs.com/learn/introduction/architecture) and [commerce modules](https://docs.medusajs.com/learn/fundamentals/modules/commerce-modules) in the Docs.
+The following environment variables need to be configured in Dokploy:
 
-## Community & Contributions
+```
+# Database
+DATABASE_URL=postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
 
-The community and core team are available in [GitHub Discussions](https://github.com/medusajs/medusa/discussions), where you can ask for support, discuss roadmap, and share ideas.
+# Redis
+REDIS_URL=redis://${REDIS_HOST}:${REDIS_PORT}
 
-Join our [Discord server](https://discord.com/invite/medusajs) to meet other community members.
+# JWT and cookies
+JWT_SECRET=your_jwt_secret
+COOKIE_SECRET=your_cookie_secret
 
-## Other channels
+# CORS
+STORE_CORS=https://your-storefront-url
+ADMIN_CORS=https://your-admin-url
+```
 
-- [GitHub Issues](https://github.com/medusajs/medusa/issues)
-- [Twitter](https://twitter.com/medusajs)
-- [LinkedIn](https://www.linkedin.com/company/medusajs)
-- [Medusa Blog](https://medusajs.com/blog/)
+## Local Development
+
+To run this backend locally:
+
+```bash
+# Install dependencies
+npm install
+
+# Run migrations
+npx medusa migrations run
+
+# Start development server
+npm run dev
+```
+
+## Resources
+
+- [Medusa Documentation](https://docs.medusajs.com/)
+- [Dokploy Documentation](https://dokploy.com/docs)
