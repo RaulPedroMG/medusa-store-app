@@ -1,0 +1,56 @@
+version: '1.0'
+
+services:
+  # Backend Medusa Configuration
+  medusa-backend:
+    type: web
+    source:
+      path: ./medusa-store
+    build:
+      command: npm run build
+    start:
+      command: npm run start
+    environment:
+      - NODE_ENV=production
+      - PORT=9000
+      - DATABASE_URL=postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+      - REDIS_URL=redis://${REDIS_HOST}:${REDIS_PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - COOKIE_SECRET=${COOKIE_SECRET}
+      - STORE_CORS=${STOREFRONT_URL}
+      - ADMIN_CORS=${ADMIN_URL}
+    resources:
+      memory: 1024
+      cpu: 500
+    ports:
+      - 9000:9000
+
+  # Storefront Configuration
+  medusa-storefront:
+    type: web
+    source:
+      path: ./medusa-storefront
+    build:
+      command: npm run build
+    start:
+      command: npm run start
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_MEDUSA_BACKEND_URL=${BACKEND_URL}
+      - PORT=8000
+    resources:
+      memory: 1024
+      cpu: 500
+    ports:
+      - 8000:8000
+
+databases:
+  # PostgreSQL database for Medusa
+  postgres:
+    type: postgresql
+    version: 14
+
+  # Redis for caching and queue management
+  redis:
+    type: redis
+    version: 6
