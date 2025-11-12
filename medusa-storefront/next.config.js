@@ -1,6 +1,6 @@
+// Skip environment checks during build
 const checkEnvVariables = require("./check-env-variables")
 
-// Only check environment variables in production, not during build time
 if (process.env.NODE_ENV !== "docker-build") {
   checkEnvVariables()
 }
@@ -30,14 +30,10 @@ const nextConfig = {
   // Skip static generation during build time
   output: "standalone",
   staticPageGenerationTimeout: 1000,
-  // Disable static generation for routes that need backend data
-  experimental: {
-    disableStaticGenerationForPaths: [
-      "/[countryCode]/collections/[handle]",
-      "/[countryCode]/products/[handle]",
-      "/[countryCode]/(main)/collections/[handle]",
-      "/[countryCode]/(main)/products/[handle]",
-    ],
+  // Use empty target to skip data fetching at build time
+  env: {
+    SKIP_BUILD_STATIC_GENERATION:
+      process.env.NODE_ENV === "docker-build" ? "true" : "",
   },
   images: {
     remotePatterns: [
