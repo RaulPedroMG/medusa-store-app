@@ -1,11 +1,8 @@
-# Dokploy configuration
+version: "3"
 
 services:
   # Backend Medusa Configuration
   medusa-backend:
-    type: web
-    source:
-      path: ./medusa-store
     build:
       context: ./medusa-store
       dockerfile: Dockerfile
@@ -32,9 +29,6 @@ services:
 
   # Storefront Configuration
   medusa-storefront:
-    type: web
-    source:
-      path: ./medusa-storefront
     build:
       context: ./medusa-storefront
       dockerfile: Dockerfile
