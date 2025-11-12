@@ -30,4 +30,4 @@ ENV PORT=9000
 RUN mkdir -p /app/data
 
 # Command to run the application
-CMD ["pnpm", "start"]
+CMD ["medusa", "start"]
