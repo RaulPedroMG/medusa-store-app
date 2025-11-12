@@ -13,7 +13,8 @@ RUN npm install
 # Copy the rest of the application
 COPY . .
 
-# Build the application
+# Build the application with NODE_ENV set to docker-build to skip static generation
+ENV NODE_ENV=docker-build
 RUN npm run build
 
 # Expose the port the app will run on

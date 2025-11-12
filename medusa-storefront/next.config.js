@@ -1,6 +1,9 @@
 const checkEnvVariables = require("./check-env-variables")
 
-checkEnvVariables()
+// Only check environment variables in production, not during build time
+if (process.env.NODE_ENV !== "docker-build") {
+  checkEnvVariables()
+}
 
 /**
  * Medusa Cloud-related environment variables
@@ -23,6 +26,18 @@ const nextConfig = {
   },
   typescript: {
     ignoreBuildErrors: true,
+  },
+  // Skip static generation during build time
+  output: "standalone",
+  staticPageGenerationTimeout: 1000,
+  // Disable static generation for routes that need backend data
+  experimental: {
+    disableStaticGenerationForPaths: [
+      "/[countryCode]/collections/[handle]",
+      "/[countryCode]/products/[handle]",
+      "/[countryCode]/(main)/collections/[handle]",
+      "/[countryCode]/(main)/products/[handle]",
+    ],
   },
   images: {
     remotePatterns: [
