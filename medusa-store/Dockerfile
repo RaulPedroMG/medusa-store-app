@@ -22,5 +22,12 @@ RUN pnpm build
 # Expose the port the app will run on
 EXPOSE 9000
 
+# Set environment variables for production
+ENV NODE_ENV=production
+ENV PORT=9000
+
+# Create data directory
+RUN mkdir -p /app/data
+
 # Command to run the application
 CMD ["pnpm", "start"]
