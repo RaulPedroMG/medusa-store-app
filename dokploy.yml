@@ -3,6 +3,9 @@
 services:
   # Backend Medusa Configuration
   medusa-backend:
+    type: web
+    source:
+      path: ./medusa-store
     build:
       context: ./medusa-store
       dockerfile: Dockerfile
@@ -11,12 +14,16 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=9000
+      - MEDUSA_HOST=0.0.0.0
       - DATABASE_URL=postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
       - REDIS_URL=redis://${REDIS_HOST}:${REDIS_PORT}
       - JWT_SECRET=${JWT_SECRET}
       - COOKIE_SECRET=${COOKIE_SECRET}
       - STORE_CORS=${STOREFRONT_URL}
       - ADMIN_CORS=${ADMIN_URL}
+    resources:
+      memory: 1024
+      cpu: 500
     ports:
       - "9000:9000"
     depends_on:
@@ -25,6 +32,9 @@ services:
 
   # Storefront Configuration
   medusa-storefront:
+    type: web
+    source:
+      path: ./medusa-storefront
     build:
       context: ./medusa-storefront
       dockerfile: Dockerfile
