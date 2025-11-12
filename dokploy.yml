@@ -1,15 +1,12 @@
-version: '1.0'
+version: "3"
 
 services:
   # Backend Medusa Configuration
   medusa-backend:
-    type: web
-    source:
-      path: ./medusa-store
     build:
-      command: npm run build
-    start:
-      command: npm run start
+      context: ./medusa-store
+      dockerfile: Dockerfile
+    command: npm run start
     environment:
       - NODE_ENV=production
       - PORT=9000
@@ -19,38 +16,43 @@ services:
       - COOKIE_SECRET=${COOKIE_SECRET}
       - STORE_CORS=${STOREFRONT_URL}
       - ADMIN_CORS=${ADMIN_URL}
-    resources:
-      memory: 1024
-      cpu: 500
     ports:
-      - 9000:9000
+      - "9000:9000"
+    depends_on:
+      - postgres
+      - redis
 
   # Storefront Configuration
   medusa-storefront:
-    type: web
-    source:
-      path: ./medusa-storefront
     build:
-      command: npm run build
-    start:
-      command: npm run start
+      context: ./medusa-storefront
+      dockerfile: Dockerfile
+    command: npm run start
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_MEDUSA_BACKEND_URL=${BACKEND_URL}
       - PORT=8000
-    resources:
-      memory: 1024
-      cpu: 500
     ports:
-      - 8000:8000
+      - "8000:8000"
+    depends_on:
+      - medusa-backend
 
-databases:
   # PostgreSQL database for Medusa
   postgres:
-    type: postgresql
-    version: 14
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   # Redis for caching and queue management
   redis:
-    type: redis
-    version: 6
+    image: redis:6
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
