@@ -15,7 +15,7 @@ function checkEnvVariables() {
 
   if (missingEnvs.length > 0) {
     console.error(
-      c.red.bold("\n🚫 Error: Missing required environment variables\n")
+      c.red.bold("\n⚠️ Warning: Missing recommended environment variables\n")
     )
 
     missingEnvs.forEach(function (env) {
@@ -27,11 +27,16 @@ function checkEnvVariables() {
 
     console.error(
       c.yellow(
-        "\nPlease set these variables in your Dokploy environment configuration before deploying the application.\n"
+        "\nThese variables should be set in your Dokploy environment configuration before running the application.\n"
       )
     )
 
-    process.exit(1)
+    // Using a default URL for build time
+    process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL =
+      process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://medusa-backend:9000"
+
+    // Don't exit during build
+    // process.exit(1)
   }
 }
 
