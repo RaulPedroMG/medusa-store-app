@@ -12,12 +12,12 @@ services:
       - NODE_ENV=production
       - PORT=9000
       - MEDUSA_HOST=0.0.0.0
-      - DATABASE_URL=postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
-      - REDIS_URL=redis://${REDIS_HOST}:${REDIS_PORT}
-      - JWT_SECRET=${JWT_SECRET}
-      - COOKIE_SECRET=${COOKIE_SECRET}
-      - STORE_CORS=${STOREFRONT_URL}
-      - ADMIN_CORS=${ADMIN_URL}
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/medusa
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=supersecret
+      - COOKIE_SECRET=supersecret
+      - STORE_CORS=*
+      - ADMIN_CORS=*
 
     ports:
       - "9000:9000"
@@ -46,9 +46,9 @@ services:
     image: postgres:14
     restart: always
     environment:
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=medusa
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
