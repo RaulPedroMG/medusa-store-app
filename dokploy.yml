@@ -7,7 +7,7 @@ services:
       context: ./medusa-store
       dockerfile: Dockerfile
     restart: always
-    command: pnpm start
+    command: medusa start
     environment:
       - NODE_ENV=production
       - PORT=9000
