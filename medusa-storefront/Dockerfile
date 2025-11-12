@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Create empty .next directory and standalone output
-RUN mkdir -p .next/standalone .next/static
+RUN mkdir -p .next/standalone .next/static .next/server
 RUN echo '{"version":1,"pages":{}}' > .next/build-manifest.json
 RUN echo '{"sortedPages":[]}' > .next/prerender-manifest.json
 RUN echo '{"runtime":"nodejs","target":"server","files":{}}' > .next/server/middleware-manifest.json
