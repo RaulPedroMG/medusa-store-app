@@ -1,4 +1,4 @@
-version: "3"
+# Dokploy configuration
 
 services:
   # Backend Medusa Configuration
