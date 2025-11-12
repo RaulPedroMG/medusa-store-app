@@ -6,7 +6,8 @@ services:
     build:
       context: ./medusa-store
       dockerfile: Dockerfile
-    command: npm run start
+    restart: always
+    command: pnpm start
     environment:
       - NODE_ENV=production
       - PORT=9000
@@ -27,10 +28,11 @@ services:
     build:
       context: ./medusa-storefront
       dockerfile: Dockerfile
-    command: npm run start
+    restart: always
+    command: node .next/standalone/server.js
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_MEDUSA_BACKEND_URL=${BACKEND_URL}
+      - NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://medusa-backend:9000
       - PORT=8000
     ports:
       - "8000:8000"
@@ -40,18 +42,30 @@ services:
   # PostgreSQL database for Medusa
   postgres:
     image: postgres:14
+    restart: always
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # Redis for caching and queue management
   redis:
     image: redis:6
+    restart: always
     volumes:
       - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:
