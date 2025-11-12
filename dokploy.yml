@@ -18,9 +18,7 @@ services:
       - COOKIE_SECRET=${COOKIE_SECRET}
       - STORE_CORS=${STOREFRONT_URL}
       - ADMIN_CORS=${ADMIN_URL}
-    resources:
-      memory: 1024
-      cpu: 500
+
     ports:
       - "9000:9000"
     depends_on:
