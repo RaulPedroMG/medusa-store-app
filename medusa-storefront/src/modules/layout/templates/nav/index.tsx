@@ -1,13 +1,21 @@
 import { Suspense } from "react"
 
-import { listRegions } from "@lib/data/regions"
-import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 
 export default async function Nav() {
-  const regions = await listRegions().then((regions: StoreRegion[]) => regions)
+  // Error handling for region fetching
+  let regions = []
+  try {
+    const { listRegions } = await import("@lib/data/regions")
+    regions = await listRegions()
+      .then((regions) => regions)
+      .catch(() => [])
+  } catch (error) {
+    console.error("Error loading regions:", error)
+    // Continue with empty regions array
+  }
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
