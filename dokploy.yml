@@ -12,12 +12,12 @@ services:
       - NODE_ENV=production
       - PORT=9000
       - MEDUSA_HOST=0.0.0.0
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/medusa
-      - REDIS_URL=redis://redis:6379
-      - JWT_SECRET=supersecret
-      - COOKIE_SECRET=supersecret
-      - STORE_CORS=*
-      - ADMIN_CORS=*
+      - DATABASE_URL=postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+      - REDIS_URL=redis://${REDIS_HOST}:${REDIS_PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - COOKIE_SECRET=${COOKIE_SECRET}
+      - STORE_CORS=${STORE_CORS}
+      - ADMIN_CORS=${ADMIN_CORS}
 
     ports:
       - "9000:9000"
@@ -34,7 +34,7 @@ services:
     command: node .next/standalone/server.js
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://medusa-backend:9000
+      - NEXT_PUBLIC_MEDUSA_BACKEND_URL=${NEXT_PUBLIC_MEDUSA_BACKEND_URL}
       - PORT=8000
     ports:
       - "8000:8000"
@@ -46,9 +46,9 @@ services:
     image: postgres:14
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=medusa
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
