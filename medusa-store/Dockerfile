@@ -30,4 +30,4 @@ ENV PORT=9000
 RUN mkdir -p /app/data
 
 # Command to run the application
-CMD ["npx", "medusa", "start", "--host", "0.0.0.0"]
+CMD ["npx", "medusa", "develop", "--host", "0.0.0.0"]

@@ -7,7 +7,7 @@ services:
       context: ./medusa-store
       dockerfile: Dockerfile
     restart: always
-    command: npx medusa start --host 0.0.0.0
+    command: npx medusa develop --host 0.0.0.0
     environment:
       - NODE_ENV=production
       - PORT=9000
@@ -31,9 +31,9 @@ services:
       context: ./medusa-storefront
       dockerfile: Dockerfile
     restart: always
-    command: node .next/standalone/server.js
+    command: npm run dev
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - NEXT_PUBLIC_MEDUSA_BACKEND_URL=${NEXT_PUBLIC_MEDUSA_BACKEND_URL}
       - PORT=8000
     ports:
