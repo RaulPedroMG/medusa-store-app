@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Create .env.local with backend URL
-RUN echo 'NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://medusa-backend:9000' > .env.local
+RUN echo 'NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://medusa-backend:9000\nMEDUSA_BACKEND_URL=http://medusa-backend:9000' > .env.local
 
 # Skip build step entirely - we'll build at runtime
 # This avoids trying to connect to backend during build

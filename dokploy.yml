@@ -34,6 +34,7 @@ services:
     environment:
       - NODE_ENV=development
       - NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://medusa-backend:9000
+      - MEDUSA_BACKEND_URL=http://medusa-backend:9000
       - PORT=8000
     ports:
       - "8000:8000"
