@@ -1,7 +1,10 @@
-// Skip environment checks during build
 const checkEnvVariables = require("./check-env-variables")
 
-if (process.env.NODE_ENV !== "docker-build") {
+// Skip env checks during build time
+if (
+  process.env.NODE_ENV !== "production" &&
+  process.env.NODE_ENV !== "docker-build"
+) {
   checkEnvVariables()
 }
 
@@ -30,10 +33,15 @@ const nextConfig = {
   // Skip static generation during build time
   output: "standalone",
   staticPageGenerationTimeout: 1000,
-  // Use empty target to skip data fetching at build time
+  // Experimental features to improve build
+  experimental: {
+    // Skip SSG for dynamic routes
+    skipTrailingSlashRedirect: true,
+    skipMiddlewareUrlNormalize: true,
+  },
+  // Environment variables for build time
   env: {
-    SKIP_BUILD_STATIC_GENERATION:
-      process.env.NODE_ENV === "docker-build" ? "true" : "",
+    SKIP_BUILD_STATIC_GENERATION: "true",
   },
   images: {
     remotePatterns: [

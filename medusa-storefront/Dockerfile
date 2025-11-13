@@ -16,7 +16,12 @@ COPY . .
 # Create .env.local with backend URL
 RUN echo 'NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://medusa-backend:9000' > .env.local
 
-# Build the application
+# Set environment variables for build time
+ENV NODE_ENV=production
+ENV SKIP_BUILD_STATIC_GENERATION=true
+ENV NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://medusa-backend:9000
+
+# Build the application with static generation disabled
 RUN npm run build
 
 # Expose the port the app will run on

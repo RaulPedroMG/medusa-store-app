@@ -1,4 +1,4 @@
-version: "3"
+# Dokploy configuration
 
 services:
   # Backend Medusa Configuration
@@ -7,7 +7,7 @@ services:
       context: ./medusa-store
       dockerfile: Dockerfile
     restart: always
-    command: npx medusa develop --host 0.0.0.0
+    command: npx medusa start --host 0.0.0.0
     environment:
       - NODE_ENV=production
       - PORT=9000
