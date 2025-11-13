@@ -1,4 +1,4 @@
-# Dokploy configuration
+# Dokploy configuration for Medusa E-commerce
 
 services:
   # Backend Medusa Configuration
@@ -7,18 +7,17 @@ services:
       context: ./medusa-store
       dockerfile: Dockerfile
     restart: always
-    command: npx medusa start --host 0.0.0.0
+    command: npx medusa develop --host 0.0.0.0
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - PORT=9000
       - MEDUSA_HOST=0.0.0.0
-      - DATABASE_URL=postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
-      - REDIS_URL=redis://${REDIS_HOST}:${REDIS_PORT}
-      - JWT_SECRET=${JWT_SECRET}
-      - COOKIE_SECRET=${COOKIE_SECRET}
-      - STORE_CORS=${STORE_CORS}
-      - ADMIN_CORS=${ADMIN_CORS}
-
+      - DATABASE_URL=postgres://postgres:P0stgr3SQL@postgres:5432/medusa
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=shOJCFOdVXEjHBiVXaTKDPkA9Di/4fvUNayuIq9pA9U7H1ooLPLizaGHbYsKX67eOiK2HfSQzgAnoDC2Xnp7pw==
+      - COOKIE_SECRET=r2dY7Lyp5WRDxi6MoaZffjZ8aQ7ifFJ3Ipzhh+lyocUh234XVLdCjCpzF5BgNJR5ECWMDCwvEk4X2/3k8twCTQ==
+      - STORE_CORS=*
+      - ADMIN_CORS=*
     ports:
       - "9000:9000"
     depends_on:
@@ -31,9 +30,9 @@ services:
       context: ./medusa-storefront
       dockerfile: Dockerfile
     restart: always
-    command: npm run start
+    command: npm run dev
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://medusa-backend:9000
       - PORT=8000
     ports:
@@ -46,9 +45,9 @@ services:
     image: postgres:14
     restart: always
     environment:
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=P0stgr3SQL
+      - POSTGRES_DB=medusa
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
