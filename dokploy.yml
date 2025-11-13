@@ -31,10 +31,10 @@ services:
       context: ./medusa-storefront
       dockerfile: Dockerfile
     restart: always
-    command: npm run dev
+    command: npm run start
     environment:
-      - NODE_ENV=development
-      - NEXT_PUBLIC_MEDUSA_BACKEND_URL=${NEXT_PUBLIC_MEDUSA_BACKEND_URL}
+      - NODE_ENV=production
+      - NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://medusa-backend:9000
       - PORT=8000
     ports:
       - "8000:8000"
