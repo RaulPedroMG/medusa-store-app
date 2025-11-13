@@ -7,7 +7,7 @@ services:
       context: ./medusa-store
       dockerfile: Dockerfile
     restart: always
-    command: npx medusa start
+    command: npx medusa start --host 0.0.0.0
     environment:
       - NODE_ENV=production
       - PORT=9000
