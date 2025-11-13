@@ -7,8 +7,8 @@
   "scripts": {
     "build": "echo 'No build needed in Docker'",
     "dev": "medusa develop",
-    "start": "medusa start --no-seed",
-    "start:seed": "medusa seed --seed-file=./data/seed.json && medusa start",
+    "start": "medusa start",
+    "seed": "medusa seed --seed-file=./data/seed.json",
     "test": "jest"
   },
   "dependencies": {
